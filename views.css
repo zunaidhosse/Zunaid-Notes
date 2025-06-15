@@ -1,0 +1,322 @@
+/* Header */
+.app-header {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px 10px;
+    position: sticky;
+    top: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-bottom: var(--glass-border);
+    z-index: 10;
+    gap: 10px;
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.header-top-row {
+    display: flex;
+    align-items: center;
+}
+
+.app-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+}
+
+.app-header h1 {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-right: auto; /* Pushes menu to the right */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: color var(--transition-speed) ease;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    font-family: var(--font-family);
+    font-size: 1em;
+    color: var(--text-color);
+    border-radius: var(--radius-m);
+    transition: color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+    outline: none;
+}
+
+#search-bar::placeholder {
+    color: var(--text-color-light);
+}
+
+/* General View Content */
+.view-main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Note List View */
+#notes-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 15px 0;
+}
+
+.note-item {
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: box-shadow 0.2s ease-out, background 0.2s ease, transform 0.2s ease;
+}
+
+.note-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.note-item:active {
+    transform: scale(0.98);
+    background: var(--glass-bg-hover);
+}
+
+.note-item-content {
+    /* Wrapper for title and future snippet */
+}
+
+.note-item-title {
+    font-weight: 700;
+    font-size: 1.1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    transition: color var(--transition-speed) ease;
+}
+
+.note-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.note-item-date {
+    font-size: 0.8em;
+    color: var(--text-color-light);
+    transition: color var(--transition-speed) ease;
+}
+
+.note-item-category {
+    font-size: 0.75em;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: var(--radius-m);
+    background-color: var(--primary-color);
+    color: white; /* Color should be constant for primary bg */
+    max-width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .note-item-category {
+    color: #000;
+}
+
+#empty-state, #empty-categories-state {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: var(--text-color-light);
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    border-radius: var(--radius-l);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    transition: color var(--transition-speed) ease;
+}
+
+#empty-state.hidden, #empty-categories-state.hidden {
+    display: none;
+}
+
+/* Editor View */
+#note-editor-view {
+    background-color: var(--bg-color-fallback);
+    background-image: url('./background.png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    gap: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-bottom: var(--glass-border);
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 10px; /* Adjust gap if needed for more buttons */
+}
+
+.editor-main {
+    flex-grow: 1;
+    display: flex;
+    padding: 5px;
+}
+
+#note-editor {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 20px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    resize: none;
+    border-radius: var(--radius-l);
+    transition: color var(--transition-speed) ease, background 0.2s ease, font-size var(--transition-speed) ease;
+}
+#note-editor::placeholder {
+    color: var(--text-color-light);
+}
+
+.category-display-tag {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-color-light);
+    background: var(--glass-bg-inset);
+    padding: 6px 12px;
+    border-radius: var(--radius-m);
+    border: var(--glass-border);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 200px);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+/* Settings View */
+.settings-group {
+    margin-bottom: 35px;
+    background: var(--glass-bg);
+    padding: 20px;
+    border-radius: var(--radius-l);
+    border: var(--glass-border);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.settings-label {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--text-color);
+    transition: color var(--transition-speed) ease;
+}
+
+.settings-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Info View */
+.info-section {
+    margin-bottom: 25px;
+    background: var(--glass-bg);
+    padding: 20px;
+    border-radius: var(--radius-l);
+    border: var(--glass-border);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+}
+
+.info-section h2 {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.info-section h3 {
+    font-size: 1.05em;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.info-section p, .info-section li {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: var(--text-color-light);
+}
+
+.info-section p strong, .info-section li strong {
+    color: var(--text-color);
+    font-weight: normal;
+}
+
+.info-section ul {
+    list-style-position: inside;
+    padding-left: 5px;
+}
+
+/* Categories View */
+#category-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 15px 0; /* Match notes list */
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 15px; /* More padding vertically */
+    margin-bottom: 15px;
+    cursor: default; /* Not clickable itself */
+    transition: background 0.2s ease, color var(--transition-speed) ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.category-item-name {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.category-item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.category-item-actions .icon-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em; /* Smaller icons than header */
+}

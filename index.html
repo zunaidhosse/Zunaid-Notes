@@ -1,0 +1,264 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zunaid Notes</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components.css">
+    <link rel="stylesheet" href="views.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e0e5ec">
+</head>
+<body>
+
+    <div id="app-container">
+        <!-- Main Screen (Note List View) -->
+        <div id="notes-list-view" class="view active">
+            <header class="app-header">
+                <div class="header-top-row">
+                    <img src="icon-192x192.png" alt="App Icon" class="app-icon">
+                    <h1 data-lang-key="appTitle">Zunaid Notes</h1>
+                    <div class="menu-container">
+                        <button id="main-menu-btn" class="icon-btn neumorphic" aria-label="Menu" data-lang-aria="menuLabel">⋮</button>
+                        <div id="main-menu-dropdown" class="menu-dropdown neumorphic hidden">
+                            <button class="menu-item neumorphic" data-action="settings" data-lang-key="menuSettings">Settings</button>
+                            <button class="menu-item neumorphic" data-action="backup-restore" data-lang-key="menuBackupRestore">Backup & Restore</button>
+                            <button class="menu-item neumorphic" data-action="categories" data-lang-key="menuCategories">Categories</button>
+                            <button class="menu-item neumorphic" data-action="info" data-lang-key="menuInfo">Info</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="search" id="search-bar" placeholder="Search notes..." data-lang-placeholder="searchPlaceholder">
+            </header>
+            <main id="notes-list-container">
+                <div id="notes-list">
+                    <!-- Notes will be dynamically inserted here -->
+                </div>
+                <div id="empty-state" class="hidden">
+                    <p data-lang-key="emptyStateHeader">No notes found.</p>
+                    <p data-lang-key="emptyStateBody">Press the '+' button to create a new note.</p>
+                </div>
+            </main>
+            <button id="add-note-btn" class="fab" aria-label="Create new note" data-lang-aria="addNoteLabel">+</button>
+        </div>
+
+        <!-- Note Editor Screen -->
+        <div id="note-editor-view" class="view">
+            <header class="editor-header">
+                <button id="back-btn" class="icon-btn" aria-label="Back" data-lang-aria="backLabel">&larr;</button>
+                <div id="editor-category-display" class="category-display-tag" data-lang-key="noCategory">No Category</div>
+                <div class="editor-actions">
+                    <button id="undo-btn" class="icon-btn" aria-label="Undo" data-lang-aria="undoLabel">↺</button>
+                    <button id="redo-btn" class="icon-btn" aria-label="Redo" data-lang-aria="redoLabel">↻</button>
+                    <button id="summarize-note-btn" class="icon-btn" aria-label="Summarize Note" data-lang-aria="summarizeLabel">✨</button>
+                    <button id="category-note-btn" class="icon-btn" aria-label="Set Category" data-lang-aria="setCategoryLabel">🏷️</button>
+                    <button id="share-note-btn" class="icon-btn" aria-label="Share" data-lang-aria="shareLabel"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3z"/></svg></button>
+                    <button id="delete-note-btn" class="icon-btn" aria-label="Delete" data-lang-aria="deleteLabel">🗑️</button>
+                </div>
+            </header>
+            <main class="editor-main">
+                <textarea id="note-editor" placeholder="Start writing your note..." data-lang-placeholder="editorPlaceholder"></textarea>
+            </main>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settings-view" class="view">
+            <header class="app-header">
+                <div class="header-top-row">
+                    <button id="settings-back-btn" class="icon-btn neumorphic" aria-label="Back" data-lang-aria="backLabel">&larr;</button>
+                    <h1 data-lang-key="settingsTitle">Settings</h1>
+                </div>
+            </header>
+            <main class="view-main-content">
+                <div class="settings-group">
+                    <h2 class="settings-label" data-lang-key="themeTitle">Change Theme</h2>
+                    <div class="settings-options" id="theme-options">
+                        <button class="option-btn neumorphic" data-theme="light" data-lang-key="themeLight">Light</button>
+                        <button class="option-btn neumorphic" data-theme="dark" data-lang-key="themeDark">Dark</button>
+                        <button class="option-btn neumorphic" data-theme="soft" data-lang-key="themeSoft">Soft</button>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h2 class="settings-label" data-lang-key="fontSizeTitle">Font Size</h2>
+                    <div class="settings-options" id="font-size-options">
+                        <button class="option-btn neumorphic" data-font-size="small" data-lang-key="fontSmall">Small</button>
+                        <button class="option-btn neumorphic" data-font-size="medium" data-lang-key="fontMedium">Medium</button>
+                        <button class="option-btn neumorphic" data-font-size="large" data-lang-key="fontLarge">Large</button>
+                    </div>
+                </div>
+                 <div class="settings-group">
+                    <h2 class="settings-label" data-lang-key="languageTitle">Change Language</h2>
+                    <div class="settings-options" id="language-options">
+                        <button class="option-btn neumorphic" data-lang="bn" data-lang-key="langBengali">বাংলা</button>
+                        <button class="option-btn neumorphic" data-lang="en" data-lang-key="langEnglish">English</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Backup & Restore Screen -->
+        <div id="backup-restore-view" class="view">
+             <header class="app-header">
+                <div class="header-top-row">
+                    <button id="backup-back-btn" class="icon-btn neumorphic" aria-label="Back" data-lang-aria="backLabel">&larr;</button>
+                    <h1 data-lang-key="menuBackupRestore">Backup & Restore</h1>
+                </div>
+            </header>
+            <main class="view-main-content">
+                 <div class="settings-group">
+                    <button class="menu-item neumorphic full-width" id="create-backup-btn" data-lang-key="createBackup">Create Backup</button>
+                 </div>
+                 <div class="settings-group">
+                    <button class="menu-item neumorphic full-width" id="restore-backup-btn" data-lang-key="restoreBackup">Restore Data</button>
+                 </div>
+            </main>
+        </div>
+
+        <!-- Categories Screen -->
+        <div id="categories-view" class="view">
+             <header class="app-header">
+                <div class="header-top-row">
+                    <button id="categories-back-btn" class="icon-btn neumorphic" aria-label="Back" data-lang-aria="backLabel">&larr;</button>
+                    <h1 data-lang-key="menuCategories">Categories</h1>
+                </div>
+            </header>
+            <main id="category-list-container" class="view-main-content">
+                <div id="category-list">
+                    <!-- Categories will be dynamically inserted here -->
+                </div>
+                <div id="empty-categories-state" class="hidden">
+                    <p data-lang-key="emptyCategoriesHeader">No categories.</p>
+                    <p data-lang-key="emptyCategoriesBody">Press the '+' button to create a new category.</p>
+                </div>
+            </main>
+            <button id="add-category-btn" class="fab" aria-label="Create new category" data-lang-aria="addCategoryLabel">+</button>
+        </div>
+
+        <!-- Info Screen -->
+        <div id="info-view" class="view">
+             <header class="app-header">
+                <div class="header-top-row">
+                    <button id="info-back-btn" class="icon-btn neumorphic" aria-label="Back" data-lang-aria="backLabel">&larr;</button>
+                    <h1 data-lang-key="infoTitle">About Developer</h1>
+                </div>
+            </header>
+            <main class="view-main-content">
+                <div class="info-section">
+                    <h2>Personal Information</h2>
+                    <p><strong>Name:</strong> Zunaidh Hossen Meraj</p>
+                    <p><strong>Address:</strong> 123, Bhola, Barishal - 1207, Bangladesh</p>
+                    <p><strong>Phone Number:</strong> +9660581991368</p>
+                    <p><strong>Email:</strong> gnsesports.com@gmail.com</p>
+                </div>
+    
+                <div class="info-section">
+                    <h2>Educational Qualifications</h2>
+                    <h3>Bachelor of Science in Computer Science</h3>
+                    <p><strong>Institution:</strong> University of Dhaka</p>
+                    <p><strong>Year of Graduation:</strong> 2023</p>
+    
+                    <h3>Higher Secondary Certificate (HSC)</h3>
+                    <p><strong>Institution:</strong> Notre Dame College, Dhaka</p>
+                    <p><strong>Year of Graduation:</strong> 2018</p>
+    
+                    <h3>Secondary School Certificate (SSC)</h3>
+                    <p><strong>Institution:</strong> Residential Model School and College, Dhaka</p>
+                    <p><strong>Year of Graduation:</strong> 2016</p>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Professional Experience</h2>
+                    <h3>Junior Software Developer</h3>
+                    <p><strong>Organization:</strong> ABC Technologies</p>
+                    <p><strong>Duration:</strong> January 2023 – Present</p>
+                    <p><strong>Responsibilities:</strong> Web application development, backend development, and database management.</p>
+    
+                    <h3>Internship</h3>
+                    <p><strong>Organization:</strong> XYZ Solutions</p>
+                    <p><strong>Duration:</strong> June 2022 – December 2022</p>
+                    <p><strong>Responsibilities:</strong> Web development and frontend design.</p>
+                </div>
+    
+                <div class="info-section">
+                    <h2>Technical Skills</h2>
+                    <ul>
+                        <li><strong>Programming Languages:</strong> Python, JavaScript, Java, Dart</li>
+                        <li><strong>Web Technologies:</strong> HTML, CSS, Node.js, React</li>
+                        <li><strong>Mobile Application Development:</strong> Flutter</li>
+                        <li><strong>Databases:</strong> MySQL, MongoDB</li>
+                    </ul>
+                </div>
+    
+                <div class="info-section">
+                    <h2>Personal Skills</h2>
+                    <ul>
+                        <li>Problem-solving ability</li>
+                        <li>Teamwork</li>
+                        <li>Communication skills</li>
+                        <li>Time management</li>
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Achievements and Awards</h2>
+                    <ul>
+                        <li>Best Software Project Award – 2023</li>
+                        <li>Programming Contest Champion – 2022</li>
+                    </ul>
+                </div>
+    
+                <div class="info-section">
+                    <h2>Language Proficiency</h2>
+                    <ul>
+                        <li>Bengali – Native</li>
+                        <li>English – Fluent</li>
+                    </ul>
+                </div>
+    
+                <div class="info-section">
+                    <h2>Hobbies and Interests</h2>
+                    <ul>
+                        <li>Programming</li>
+                        <li>Researching mobile applications</li>
+                    </ul>
+                </div>
+            </main>
+        </div>
+
+        <div id="install-banner" class="hidden">
+             <p data-lang-key="installPrompt">Install this app for a better experience!</p>
+             <div class="install-banner-actions">
+                <button id="install-btn" class="option-btn neumorphic" data-lang-key="installButton">Install</button>
+                <button id="install-dismiss-btn" class="icon-btn neumorphic" data-lang-aria="dismiss" aria-label="Dismiss">&times;</button>
+             </div>
+        </div>
+
+    </div>
+
+    <!-- Generic Modal -->
+    <div id="modal-overlay" class="hidden">
+        <div id="modal" class="neumorphic">
+            <h2 id="modal-title"></h2>
+            <div id="modal-content"></div>
+            <div id="modal-actions">
+                <button id="modal-cancel-btn" class="option-btn neumorphic"></button>
+                <button id="modal-confirm-btn" class="option-btn neumorphic active"></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "luxon": "https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/es6/luxon.js",
+        "jszip": "https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm"
+      }
+    }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

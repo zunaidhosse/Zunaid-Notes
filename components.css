@@ -1,0 +1,346 @@
+/* Glassmorphism Base Styles */
+.neumorphic {
+    background: var(--glass-bg);
+    border-radius: var(--radius-m);
+    box-shadow: var(--glass-shadow);
+    border: var(--glass-border);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+    transform: translateZ(0);
+}
+
+.neumorphic-inset {
+    background: var(--glass-bg-inset);
+    border-radius: var(--radius-m);
+    border: var(--glass-border);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    box-shadow: none; /* Inset doesn't work well with glass, use a different background instead */
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+/* Menu */
+.menu-container {
+    position: relative; /* For dropdown positioning */
+}
+
+#main-menu-btn {
+    font-size: 1.8em; /* Adjust icon size */
+    padding: 0; /* Override if icon-btn has padding that misaligns text */
+    line-height: 1; /* Ensure vertical centering of icon */
+}
+
+#main-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 8px); /* Below the button with a gap */
+    right: 0;
+    width: 200px;
+    z-index: 20; /* Above header content, below modals if any */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: var(--radius-m); /* Consistent with neumorphic */
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+#main-menu-dropdown.hidden {
+    display: none;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    text-align: left;
+    font-family: var(--font-family);
+    font-size: 1em;
+    color: var(--text-color);
+    cursor: pointer;
+    background: transparent; /* Part of dropdown glass */
+    border-radius: var(--radius-m); /* Consistent radius */
+    transition: box-shadow 0.2s ease-out, color var(--transition-speed) ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.menu-item:hover, .menu-item:focus-visible {
+    background: var(--glass-bg-hover);
+}
+
+.menu-item:active {
+    transform: scale(0.98);
+}
+
+.menu-item.full-width {
+    text-align: center;
+}
+
+/* Floating Action Button */
+.fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    font-size: 2em;
+    color: var(--text-color);
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-out;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.fab:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+}
+
+.fab:active {
+    transform: scale(0.95);
+    background: var(--glass-bg-hover);
+}
+
+.install-banner-visible .fab {
+    bottom: 100px; /* Adjust for install banner height */
+}
+
+
+/* Icon Button */
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5em; /* Default icon size */
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: var(--glass-border);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.icon-btn:hover {
+    background: var(--glass-bg-hover);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+.icon-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--glass-bg-inset);
+    color: var(--text-color-light);
+    transform: none;
+    border-color: transparent;
+}
+
+
+/* Option Button */
+.option-btn {
+    padding: 12px 20px;
+    border: none;
+    font-family: var(--font-family);
+    font-size: 1em;
+    color: var(--text-color);
+    cursor: pointer;
+    border: var(--glass-border);
+    transition: background 0.2s ease, color var(--transition-speed) ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.option-btn:hover {
+    background: var(--glass-bg-hover);
+}
+
+.option-btn.active {
+    background: var(--glass-bg-hover);
+    color: var(--primary-color);
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+}
+
+/* Modal styles */
+#modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#modal-overlay:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#modal {
+    width: 90%;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: var(--radius-l);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#modal-overlay:not(.hidden) #modal {
+    transform: scale(1);
+}
+
+#modal-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-color);
+}
+
+#modal-content input {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    font-family: var(--font-family);
+    font-size: 1em;
+    color: var(--text-color);
+    border-radius: var(--radius-m);
+    background: var(--glass-bg-inset);
+    border: var(--glass-border);
+    outline: none;
+}
+#modal-content input:focus {
+    border-color: var(--primary-color);
+}
+
+#modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+/* Category Selection (in Modal) */
+.category-selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.category-selection-item {
+    padding: 12px 15px;
+    border: none;
+    font-family: var(--font-family);
+    font-size: 1em;
+    color: var(--text-color);
+    cursor: pointer;
+    background: var(--glass-bg);
+    border-radius: var(--radius-m);
+    border: var(--glass-border);
+    text-align: left;
+    transition: background 0.2s ease, color var(--transition-speed) ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.category-selection-item:hover, .category-selection-item.active {
+    background: var(--glass-bg-hover);
+    color: var(--primary-color);
+}
+
+.category-selection-item.create-new {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Install Banner */
+#install-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 800px; /* To match app-container */
+    margin: 0 auto; /* Center it */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-top: var(--glass-border);
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform 0.4s ease-out, background 0.3s ease;
+}
+
+#install-banner:not(.hidden) {
+    transform: translateY(0);
+}
+
+#install-banner.hidden {
+    display: none;
+}
+
+#install-banner p {
+    margin-right: 15px;
+    font-size: 0.9em;
+}
+
+.install-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#install-banner #install-btn {
+    padding: 8px 16px;
+    flex-shrink: 0;
+}
+
+#install-banner #install-dismiss-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.5em;
+    line-height: 1;
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+
+#install-banner #install-dismiss-btn:hover {
+    background: var(--glass-bg-hover);
+}
+
+#install-banner #install-dismiss-btn:active {
+    transform: scale(0.95);
+}

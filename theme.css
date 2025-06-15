@@ -1,0 +1,45 @@
+:root {
+    --primary-color: #007bff;
+    --font-family: 'Noto Sans Bengali', sans-serif;
+    --radius-l: 15px;
+    --radius-m: 10px;
+    --transition-speed: 0.3s;
+
+    /* Glassmorphism Light Theme */
+    --bg-color-fallback: #e0e5ec;
+    --text-color: #212529;
+    --text-color-light: #5a6169;
+    --glass-bg: rgba(255, 255, 255, 0.3);
+    --glass-bg-hover: rgba(255, 255, 255, 0.5);
+    --glass-bg-inset: rgba(255, 255, 255, 0.2);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --blur-intensity: 10px;
+}
+
+[data-theme="dark"] {
+    --primary-color: #589df6;
+    --text-color: #f8f9fa;
+    --text-color-light: #adb5bd;
+
+    /* Glassmorphism Dark Theme */
+    --glass-bg: rgba(30, 30, 30, 0.35);
+    --glass-bg-hover: rgba(50, 50, 50, 0.6);
+    --glass-bg-inset: rgba(0, 0, 0, 0.25);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="soft"] {
+    --primary-color: #268bd2;
+    --text-color: #586e75;
+    --text-color-light: #657b83;
+    
+    /* Glassmorphism Soft Theme */
+    --bg-color-fallback: #fdf6e3;
+    --glass-bg: rgba(253, 246, 227, 0.5);
+    --glass-bg-hover: rgba(253, 246, 227, 0.8);
+    --glass-bg-inset: rgba(253, 246, 227, 0.3);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.7);
+    --glass-shadow: 0 8px 32px rgba(88, 110, 117, 0.2);
+}

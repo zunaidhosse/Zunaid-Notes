@@ -1,0 +1,64 @@
+/*
+    This file contains base styles and layout.
+    Component-specific styles are in components.css
+    View-specific styles are in views.css
+    Theme variables are in theme.css
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color-fallback);
+    background-image: url('./background.png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: var(--text-color);
+    -webkit-tap-highlight-color: transparent;
+}
+
+#app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+}
+
+.view {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    transition: background 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.view.active {
+    display: flex;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--glass-bg-hover);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-color-light);
+}
